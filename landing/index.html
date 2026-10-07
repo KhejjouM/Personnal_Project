@@ -1,0 +1,589 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Octave Avocats : cabinet d'avocats nouveau modèle, propriété intellectuelle et droit des affaires au forfait.">
+<title>Octave Avocats</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@500;700;800&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: asymmetric 12-col grid, left-aligned editorial type, one "fiche mission" card as the recurring object. */
+:root{
+  --bg:#f3f5f9;        /* cool paper */
+  --bg-2:#e7ebf3;      /* raised surface */
+  --ink:#0f1630;       /* deep indigo text */
+  --ink-2:#4b5470;     /* secondary text */
+  --line:#c9d0df;
+  --accent:#1f3be0;    /* cobalt */
+  --accent-ink:#ffffff;
+  --mint:#18a37a;      /* "straightforward" services */
+  --card:#ffffff;
+  --font-display:"Syne",ui-sans-serif,system-ui,sans-serif;
+  --font-body:"IBM Plex Sans",ui-sans-serif,system-ui,sans-serif;
+  --font-mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0c1020;--bg-2:#141a30;--ink:#eef1f8;--ink-2:#a6adc4;--line:#2a3252;
+    --accent:#6f86ff;--accent-ink:#0c1020;--mint:#3fcf9f;--card:#161d36;color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0c1020;--bg-2:#141a30;--ink:#eef1f8;--ink-2:#a6adc4;--line:#2a3252;
+  --accent:#6f86ff;--accent-ink:#0c1020;--mint:#3fcf9f;--card:#161d36;color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:17px;line-height:1.55;margin:0}
+a{color:inherit}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:clamp(16px,4vw,40px)}
+h1,h2,h3{font-family:var(--font-display);text-wrap:balance;margin:0;line-height:1.05;letter-spacing:-.01em}
+h1{font-size:clamp(2.4rem,6vw,4.6rem);font-weight:800}
+h2{font-size:clamp(1.7rem,3.4vw,2.6rem);font-weight:700}
+h3{font-size:1.2rem;font-weight:700;line-height:1.25}
+p{margin:0}
+.lede{font-size:1.15rem;color:var(--ink-2);max-width:60ch}
+.eyebrow{font-family:var(--font-mono);font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+.mono{font-family:var(--font-mono);font-variant-numeric:tabular-nums}
+section{padding-block:clamp(56px,8vw,104px);border-top:1px solid var(--line)}
+.sec-head{display:grid;gap:14px;max-width:62ch;margin-bottom:40px}
+
+/* nav */
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:64px}
+.brand{font-family:var(--font-display);font-weight:800;font-size:1.25rem;text-decoration:none;display:flex;align-items:center;gap:10px}
+.brand i{display:inline-block;width:14px;height:14px;background:var(--accent);border-radius:2px;transform:rotate(45deg)}
+nav ul{display:flex;gap:22px;list-style:none;margin:0;padding:0;font-size:.95rem}
+nav ul a{text-decoration:none;color:var(--ink-2)}
+nav ul a:hover{color:var(--ink)}
+@media (max-width:760px){nav ul{display:none}}
+.btn{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:.95rem;padding:12px 18px;border-radius:6px;text-decoration:none;border:1px solid transparent;cursor:pointer;font-family:var(--font-body)}
+.btn-primary{background:var(--accent);color:var(--accent-ink)}
+.btn-primary:hover{filter:brightness(1.08)}
+.btn-ghost{border-color:var(--line);color:var(--ink);background:transparent}
+.btn-ghost:hover{background:var(--bg-2)}
+.btn:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+/* hero */
+.hero{border-top:0;padding-block:clamp(48px,7vw,96px)}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:48px;align-items:start}
+@media (max-width:900px){.hero .wrap{grid-template-columns:1fr}}
+.hero-copy{display:grid;gap:26px}
+.hero-ctas{display:flex;flex-wrap:wrap;gap:12px}
+.hero-facts{display:flex;flex-wrap:wrap;gap:10px 28px;color:var(--ink-2);font-size:.95rem}
+.hero-facts b{color:var(--ink);font-weight:600}
+
+/* fiche mission */
+.fiche{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:22px;display:grid;gap:14px;box-shadow:0 20px 50px -30px rgba(15,22,48,.35);min-width:0}
+.fiche-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.fiche-head .ref{font-family:var(--font-mono);font-size:.78rem;color:var(--ink-2)}
+.tag{display:inline-block;font-family:var(--font-mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:4px;background:var(--bg-2);color:var(--ink-2)}
+.tag.ip{background:color-mix(in srgb,var(--accent) 14%,transparent);color:var(--accent)}
+.tag.sf{background:color-mix(in srgb,var(--mint) 16%,transparent);color:var(--mint)}
+.fiche dl{display:grid;grid-template-columns:auto 1fr;gap:8px 18px;margin:0;font-size:.95rem}
+.fiche dt{color:var(--ink-2)}
+.fiche dd{margin:0;font-weight:500}
+.fiche .total{display:flex;justify-content:space-between;align-items:baseline;border-top:1px dashed var(--line);padding-top:12px}
+.fiche .total .price{font-family:var(--font-display);font-size:1.8rem;font-weight:800;font-variant-numeric:tabular-nums}
+.fiche .total small{color:var(--ink-2);font-size:.8rem}
+.fiche .steps{display:grid;gap:6px;font-size:.9rem;color:var(--ink-2)}
+.fiche .steps span{display:flex;gap:10px;align-items:center}
+.fiche .steps span::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--line);flex:none}
+.fiche .steps span.done::before{background:var(--mint)}
+.fiche .steps span.now::before{background:var(--accent);box-shadow:0 0 0 4px color-mix(in srgb,var(--accent) 22%,transparent)}
+
+/* modèle */
+.pillars{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+@media (max-width:800px){.pillars{grid-template-columns:1fr}}
+.pillar{background:var(--card);padding:28px 24px;display:grid;gap:12px;align-content:start}
+.pillar .big{font-family:var(--font-display);font-size:2.2rem;font-weight:800;letter-spacing:-.02em;color:var(--accent)}
+.pillar p{color:var(--ink-2);font-size:.98rem}
+.compare{margin-top:40px;display:grid;grid-template-columns:1fr 1fr;gap:24px}
+@media (max-width:800px){.compare{grid-template-columns:1fr}}
+.compare > div{display:grid;gap:10px;padding:22px;border-radius:10px;border:1px solid var(--line)}
+.compare .old{background:transparent;color:var(--ink-2)}
+.compare .new{background:var(--card)}
+.compare ul{margin:0;padding-left:0;list-style:none;display:grid;gap:8px;font-size:.98rem}
+.compare li{display:flex;gap:10px}
+.compare li::before{content:"—";flex:none;color:var(--line)}
+.compare .new li::before{content:"✓";color:var(--mint)}
+
+/* services */
+.services{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:32px}
+@media (max-width:900px){.services{grid-template-columns:1fr}}
+.svc-col{display:grid;gap:16px;align-content:start}
+.svc-col header{display:grid;gap:8px;margin-bottom:8px}
+.svc-col header p{color:var(--ink-2)}
+.svc{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 18px;padding:16px 0;border-top:1px solid var(--line)}
+.svc:last-child{border-bottom:1px solid var(--line)}
+.svc h3{font-size:1.02rem;font-family:var(--font-body);font-weight:600}
+.svc p{grid-column:1;color:var(--ink-2);font-size:.93rem}
+.svc .from{grid-column:2;grid-row:1 / span 2;text-align:right;font-family:var(--font-mono);font-size:.9rem;white-space:nowrap}
+.svc .from small{display:block;color:var(--ink-2);font-size:.72rem}
+.col-ip .svc-col header h2 span{color:var(--accent)}
+.col-sf .svc-col header h2 span{color:var(--mint)}
+
+/* process */
+.process{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px;counter-reset:step}
+@media (max-width:900px){.process{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.process{grid-template-columns:1fr}}
+.step{display:grid;gap:10px;padding-top:16px;border-top:3px solid var(--line);position:relative}
+.step::before{counter-increment:step;content:"J+" counter(step);font-family:var(--font-mono);font-size:.8rem;color:var(--accent)}
+.step:nth-child(1)::before{content:"J0"}
+.step:nth-child(2)::before{content:"J+1"}
+.step:nth-child(3)::before{content:"J+2 à J+5"}
+.step:nth-child(4)::before{content:"Clôture"}
+.step p{color:var(--ink-2);font-size:.95rem}
+
+/* tarifs */
+.plans{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+@media (max-width:900px){.plans{grid-template-columns:1fr}}
+.plan{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:26px 24px;display:grid;gap:16px;align-content:start}
+.plan.featured{border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 18%,transparent)}
+.plan .price{font-family:var(--font-display);font-size:2rem;font-weight:800;font-variant-numeric:tabular-nums}
+.plan .price small{font-family:var(--font-body);font-size:.85rem;font-weight:400;color:var(--ink-2)}
+.plan ul{margin:0;padding:0;list-style:none;display:grid;gap:8px;font-size:.95rem;color:var(--ink-2)}
+.plan li{display:flex;gap:10px}
+.plan li::before{content:"·";color:var(--accent);font-weight:700}
+.note{color:var(--ink-2);font-size:.88rem;margin-top:18px;max-width:70ch}
+
+/* fondateur */
+.founder{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:40px;align-items:start}
+@media (max-width:900px){.founder{grid-template-columns:1fr}}
+.portrait{aspect-ratio:4/5;max-width:100%;border-radius:10px;background:
+  linear-gradient(135deg,color-mix(in srgb,var(--accent) 30%,var(--bg-2)),var(--bg-2));
+  border:1px solid var(--line);display:grid;place-items:end start;padding:18px;color:var(--ink-2);font-family:var(--font-mono);font-size:.8rem}
+.founder-copy{display:grid;gap:18px}
+.creds{display:grid;gap:8px;font-size:.95rem;color:var(--ink-2);padding-left:0;list-style:none;margin:0}
+.creds li{display:flex;gap:10px}
+.creds li::before{content:"§";color:var(--accent);font-family:var(--font-mono)}
+blockquote{margin:0;padding-left:18px;border-left:3px solid var(--accent);font-size:1.1rem;font-style:italic}
+
+/* faq */
+.faq{display:grid;gap:0;max-width:78ch}
+details{border-top:1px solid var(--line);padding:16px 0}
+details:last-child{border-bottom:1px solid var(--line)}
+summary{cursor:pointer;font-weight:600;list-style:none;display:flex;justify-content:space-between;gap:16px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font-family:var(--font-mono);color:var(--accent);flex:none}
+details[open] summary::after{content:"–"}
+details p{margin-top:10px;color:var(--ink-2)}
+
+/* contact */
+.contact{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:40px}
+@media (max-width:900px){.contact{grid-template-columns:1fr}}
+.contact-side{display:grid;gap:18px;align-content:start}
+.contact-side .addr{font-family:var(--font-mono);font-size:.9rem;color:var(--ink-2);display:grid;gap:4px}
+form{display:grid;gap:14px;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:24px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:560px){.row{grid-template-columns:1fr}}
+label{display:grid;gap:6px;font-size:.9rem;font-weight:500}
+input,select,textarea{font:inherit;font-size:.98rem;padding:11px 12px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--ink);width:100%;min-width:0}
+textarea{min-height:120px;resize:vertical}
+.form-foot{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;font-size:.85rem;color:var(--ink-2)}
+.toast{display:grid;gap:8px;padding:18px;border-radius:8px;background:color-mix(in srgb,var(--mint) 14%,transparent);border:1px solid var(--mint)}
+
+footer{border-top:1px solid var(--line);padding-block:32px;font-size:.85rem;color:var(--ink-2)}
+footer .wrap{display:grid;gap:14px}
+footer .legal{display:flex;flex-wrap:wrap;gap:8px 20px}
+footer a{text-decoration:none}
+
+@media (prefers-reduced-motion:no-preference){
+  .hero-copy > *{animation:rise .6s ease both}
+  .hero-copy > *:nth-child(2){animation-delay:.08s}
+  .hero-copy > *:nth-child(3){animation-delay:.16s}
+  .hero-copy > *:nth-child(4){animation-delay:.24s}
+  @keyframes rise{from{transform:translateY(8px);opacity:.01}to{transform:none;opacity:1}}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="brand" href="#top"><i></i>Octave Avocats</a>
+    <ul>
+      <li><a href="#modele">Le modèle</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#tarifs">Tarifs</a></li>
+      <li><a href="#fondateur">Le cabinet</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+    <a class="btn btn-primary" href="#contact">Demander un devis</a>
+  </div>
+</nav>
+
+<section class="hero" id="top">
+  <div class="wrap">
+    <div class="hero-copy">
+      <span class="eyebrow">Cabinet d'avocats · Propriété intellectuelle &amp; droit des affaires</span>
+      <h1>Un cabinet d'avocats qui travaille comme vos équipes produit.</h1>
+      <p class="lede">Prix annoncé avant de commencer, délai tenu, un seul interlocuteur avocat. Spécialistes de la propriété intellectuelle, nous traitons aussi vos sujets du quotidien : CGV, CGU, contrats, RGPD.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-primary" href="#contact">Décrire mon besoin</a>
+        <a class="btn btn-ghost" href="#tarifs">Voir les forfaits</a>
+      </div>
+      <div class="hero-facts">
+        <span><b>Réponse sous 24 h</b> ouvrées</span>
+        <span><b>Forfait écrit</b> avant tout démarrage</span>
+        <span><b>100 % à distance</b>, ou à Paris</span>
+      </div>
+    </div>
+
+    <aside class="fiche" aria-label="Exemple de fiche mission">
+      <div class="fiche-head">
+        <span class="tag ip">Marque</span>
+        <span class="ref">Mission n° 2026-0142 · exemple</span>
+      </div>
+      <h3>Dépôt de marque française, verbale + semi-figurative</h3>
+      <dl>
+        <dt>Recherche d'antériorités</dt><dd>Identiques et similaires, INPI + EUIPO</dd>
+        <dt>Classes de Nice</dt><dd class="mono">9, 35, 42</dd>
+        <dt>Délai</dt><dd>Dépôt sous 5 jours ouvrés</dd>
+        <dt>Suivi</dt><dd>Opposition (2 mois) incluse en veille</dd>
+      </dl>
+      <div class="total">
+        <small>Honoraires forfaitaires, hors taxes INPI</small>
+        <span class="price mono">690 €<small> HT</small></span>
+      </div>
+      <div class="steps">
+        <span class="done">Cadrage et devis acceptés</span>
+        <span class="done">Rapport d'antériorités remis</span>
+        <span class="now">Dépôt INPI en cours</span>
+        <span>Publication au BOPI, veille des oppositions</span>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<section id="modele">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Le modèle</span>
+      <h2>Ce que nous faisons différemment d'un cabinet classique.</h2>
+      <p class="lede">La facturation à l'heure récompense la lenteur. Nous l'avons remplacée par trois engagements simples.</p>
+    </div>
+    <div class="pillars">
+      <div class="pillar">
+        <span class="big">0 €</span>
+        <h3>Surprise sur la facture</h3>
+        <p>Chaque mission démarre par un forfait écrit et un périmètre précis. Si le périmètre bouge, nous le disons avant, pas après.</p>
+      </div>
+      <div class="pillar">
+        <span class="big">24 h</span>
+        <h3>Pour une première réponse</h3>
+        <p>Un avocat vous répond sous un jour ouvré avec une analyse préliminaire, un délai et un prix. Pas un formulaire, pas un stagiaire.</p>
+      </div>
+      <div class="pillar">
+        <span class="big">1</span>
+        <h3>Interlocuteur, du début à la fin</h3>
+        <p>L'avocat qui cadre votre dossier est celui qui le rédige et le plaide. Les outils d'IA juridique accélèrent la recherche, jamais la décision.</p>
+      </div>
+    </div>
+    <div class="compare">
+      <div class="old">
+        <h3>Cabinet traditionnel</h3>
+        <ul>
+          <li>Taux horaire, facture découverte en fin de mois</li>
+          <li>Rendez-vous physique pour tout, même un NDA</li>
+          <li>Dossier qui passe entre trois collaborateurs</li>
+          <li>Délai « dès que possible »</li>
+        </ul>
+      </div>
+      <div class="new">
+        <h3>Octave Avocats</h3>
+        <ul>
+          <li>Forfait ou abonnement, payable en ligne</li>
+          <li>Visio, espace client partagé, signature électronique</li>
+          <li>Un avocat référent, joignable directement</li>
+          <li>Date de livraison fixée dans le devis</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="services">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Services</span>
+      <h2>Une expertise de fond en propriété intellectuelle, et les basiques traités sans détour.</h2>
+    </div>
+    <div class="services">
+      <div class="svc-col col-ip">
+        <header>
+          <span class="tag ip">Expertise</span>
+          <h2>Propriété <span>intellectuelle</span></h2>
+          <p>Marques, dessins et modèles, droits d'auteur, logiciels et données. Du dépôt au contentieux.</p>
+        </header>
+        <div class="svc">
+          <h3>Dépôt et stratégie de marque</h3>
+          <p>Recherche d'antériorités, choix des classes de Nice, dépôt INPI, EUIPO ou international (système de Madrid), suivi des oppositions.</p>
+          <span class="from">690 € HT<small>+ taxes officielles</small></span>
+        </div>
+        <div class="svc">
+          <h3>Contrats de licence et cession</h3>
+          <p>Licences de logiciel et SaaS, cession de droits d'auteur, contrats de développement, clauses de PI dans vos contrats commerciaux.</p>
+          <span class="from">dès 1 200 € HT<small>forfait</small></span>
+        </div>
+        <div class="svc">
+          <h3>Logiciels, open source et données</h3>
+          <p>Audit de licences open source, protection du code et des bases de données, dépôt APP, clauses de réversibilité.</p>
+          <span class="from">sur devis<small>sous 24 h</small></span>
+        </div>
+        <div class="svc">
+          <h3>Contrefaçon et concurrence déloyale</h3>
+          <p>Mise en demeure, saisie-contrefaçon, procédure devant le tribunal judiciaire, retrait de contenus et plaintes plateformes.</p>
+          <span class="from">sur devis<small>phase par phase</small></span>
+        </div>
+        <div class="svc">
+          <h3>Dessins et modèles</h3>
+          <p>Dépôt et défense de vos designs produits et interfaces, en France et dans l'Union européenne.</p>
+          <span class="from">dès 590 € HT<small>+ taxes officielles</small></span>
+        </div>
+      </div>
+
+      <div class="svc-col col-sf">
+        <header>
+          <span class="tag sf">Straightforward</span>
+          <h2>Les sujets <span>du quotidien</span></h2>
+          <p>Pas besoin d'un spécialiste de la PI pour vos CGV. Besoin d'un avocat qui le fait vite, bien, et au prix annoncé.</p>
+        </header>
+        <div class="svc">
+          <h3>Revue de CGV / CGU</h3>
+          <p>Relecture critique, mise en conformité au Code de la consommation et au Code de commerce, clauses à risque signalées et réécrites.</p>
+          <span class="from">490 € HT<small>livré en 5 jours</small></span>
+        </div>
+        <div class="svc">
+          <h3>Rédaction de CGV / CGU</h3>
+          <p>B2B ou B2C, e-commerce ou SaaS. Rédigées pour être lues, avec un guide de mise en ligne.</p>
+          <span class="from">990 € HT<small>livré en 10 jours</small></span>
+        </div>
+        <div class="svc">
+          <h3>RGPD : politique de confidentialité et registre</h3>
+          <p>Politique, bandeau cookies, registre des traitements, DPA fournisseurs. Conforme aux recommandations CNIL.</p>
+          <span class="from">dès 690 € HT<small>pack</small></span>
+        </div>
+        <div class="svc">
+          <h3>Contrats commerciaux et NDA</h3>
+          <p>Accord de confidentialité, contrat de prestation, contrat de partenariat, conditions d'achat. Relecture ou rédaction.</p>
+          <span class="from">dès 290 € HT<small>NDA en 48 h</small></span>
+        </div>
+        <div class="svc">
+          <h3>Mise en demeure et recouvrement</h3>
+          <p>Courrier d'avocat motivé, relance, injonction de payer si nécessaire.</p>
+          <span class="from">350 € HT<small>envoi sous 72 h</small></span>
+        </div>
+      </div>
+    </div>
+    <p class="note">Les prix indiqués sont des forfaits de départ pour des dossiers standards, hors taxes et hors frais officiels (INPI, EUIPO, huissier). Le devis écrit fait foi.</p>
+  </div>
+</section>
+
+<section id="process">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Déroulé type</span>
+      <h2>Du premier message à la livraison.</h2>
+    </div>
+    <div class="process">
+      <div class="step">
+        <h3>Vous décrivez le besoin</h3>
+        <p>Formulaire ou e-mail, avec vos documents. Un échange confidentiel couvert par le secret professionnel dès ce stade.</p>
+      </div>
+      <div class="step">
+        <h3>Devis et délai écrits</h3>
+        <p>Un avocat vous rappelle ou vous écrit sous 24 h ouvrées avec le périmètre, le forfait et la date de livraison. Convention d'honoraires signée en ligne.</p>
+      </div>
+      <div class="step">
+        <h3>Travail et points d'étape</h3>
+        <p>Vous suivez l'avancement dans l'espace client. Les questions passent par un fil unique, pas par dix e-mails.</p>
+      </div>
+      <div class="step">
+        <h3>Livraison et explication</h3>
+        <p>Document final, note de synthèse en langage clair, 30 minutes de visio pour répondre à vos questions. Facture au montant du devis.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="tarifs">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Tarifs</span>
+      <h2>Trois façons de travailler ensemble.</h2>
+      <p class="lede">Au forfait pour un besoin ponctuel, à l'abonnement pour une entreprise qui a des questions juridiques toutes les semaines.</p>
+    </div>
+    <div class="plans">
+      <div class="plan">
+        <span class="tag">Ponctuel</span>
+        <h3>Au forfait</h3>
+        <p class="price">Prix fixe<small> par mission</small></p>
+        <ul>
+          <li>Devis écrit sous 24 h ouvrées</li>
+          <li>Date de livraison contractuelle</li>
+          <li>Visio de restitution incluse</li>
+          <li>Paiement à la commande, en ligne</li>
+        </ul>
+        <a class="btn btn-ghost" href="#contact">Demander un devis</a>
+      </div>
+      <div class="plan featured">
+        <span class="tag ip">Le plus choisi</span>
+        <h3>Abonnement Start</h3>
+        <p class="price">490 €<small> HT / mois, sans engagement</small></p>
+        <ul>
+          <li>Questions illimitées par écrit, réponse sous 24 h</li>
+          <li>Jusqu'à 3 heures de travail avocat par mois</li>
+          <li>Veille de vos marques et noms de domaine</li>
+          <li>Tarif forfait réduit de 20 % sur toute mission</li>
+        </ul>
+        <a class="btn btn-primary" href="#contact">Démarrer</a>
+      </div>
+      <div class="plan">
+        <span class="tag">Direction juridique externalisée</span>
+        <h3>Abonnement Scale</h3>
+        <p class="price">1 490 €<small> HT / mois</small></p>
+        <ul>
+          <li>Jusqu'à 10 heures de travail avocat par mois</li>
+          <li>Point mensuel avec vos équipes produit et sales</li>
+          <li>Gestion de portefeuille de marques multi-pays</li>
+          <li>Revue de vos contrats clients entrants sous 48 h</li>
+        </ul>
+        <a class="btn btn-ghost" href="#contact">Parler à un avocat</a>
+      </div>
+    </div>
+    <p class="note">Les heures non consommées ne sont pas reportées. Le contentieux est toujours traité par devis distinct, phase par phase. Convention d'honoraires conforme à l'article 10 de la loi du 31 décembre 1971.</p>
+  </div>
+</section>
+
+<section id="fondateur">
+  <div class="wrap founder">
+    <div class="portrait">Portrait · à remplacer</div>
+    <div class="founder-copy">
+      <span class="eyebrow">Le cabinet</span>
+      <h2>Fondé par un avocat spécialiste de la propriété intellectuelle.</h2>
+      <p class="lede">Me [Prénom Nom] a passé huit ans en cabinet d'affaires parisien à déposer, défendre et négocier des marques, logiciels et contenus pour des éditeurs SaaS, des marques grand public et des studios. Octave est né d'un constat : les équipes qui créent le plus de valeur immatérielle sont celles qui ont le moins accès à un avocat.</p>
+      <ul class="creds">
+        <li>Avocat au Barreau de Paris, mention de spécialisation en droit de la propriété intellectuelle</li>
+        <li>Master 2 Droit de la propriété intellectuelle (Paris II) · CEIPI</li>
+        <li>Plus de 400 marques déposées en France, dans l'UE et à l'international</li>
+        <li>Intervenant en école de design et d'ingénieurs sur la protection des créations</li>
+      </ul>
+      <blockquote>« Un bon conseil juridique ressemble à une bonne doc technique : clair, daté, et on sait qui l'a écrit. »</blockquote>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Questions fréquentes</span>
+      <h2>Ce qu'on nous demande avant de commencer.</h2>
+    </div>
+    <div class="faq">
+      <details>
+        <summary>Travaillez-vous vraiment au forfait, même pour un contentieux ?</summary>
+        <p>Pour le conseil et la rédaction, oui, systématiquement. Pour un contentieux, nous proposons un forfait par phase (mise en demeure, assignation, plaidoirie) parce que la durée dépend de l'adversaire et du tribunal. Vous validez chaque phase avant qu'elle démarre.</p>
+      </details>
+      <details>
+        <summary>Utilisez-vous l'intelligence artificielle ?</summary>
+        <p>Oui, pour la recherche de jurisprudence, la comparaison de versions et la première lecture de documents volumineux. Chaque analyse est relue et signée par un avocat. Vos documents ne sont jamais utilisés pour entraîner un modèle, et nos outils sont hébergés dans l'Union européenne.</p>
+      </details>
+      <details>
+        <summary>Pourquoi passer par un avocat plutôt qu'un service de dépôt de marque en ligne ?</summary>
+        <p>Le dépôt est la partie facile. La valeur est dans la recherche d'antériorités, le choix des classes et du libellé, et la défense en cas d'opposition. Un dépôt mal calibré se découvre deux ans plus tard, quand un concurrent vous attaque. Nos échanges sont par ailleurs couverts par le secret professionnel.</p>
+      </details>
+      <details>
+        <summary>Pouvez-vous intervenir hors de France ?</summary>
+        <p>Pour les marques et dessins et modèles, oui : EUIPO pour l'Union européenne et système de Madrid pour l'international. Pour le droit local d'un autre pays, nous travaillons avec un réseau de confrères que nous coordonnons pour vous, au tarif annoncé à l'avance.</p>
+      </details>
+      <details>
+        <summary>Qui voit mes documents ?</summary>
+        <p>Votre avocat référent, et personne d'autre sans votre accord. L'espace client est chiffré, hébergé en France, et vous pouvez demander la suppression de vos données à la clôture du dossier, sous réserve de nos obligations de conservation.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap contact">
+    <div class="contact-side">
+      <span class="eyebrow">Contact</span>
+      <h2>Décrivez votre besoin, un avocat vous répond sous 24 h ouvrées.</h2>
+      <p class="lede">Le premier échange est gratuit et sans engagement. Vous recevez un périmètre, un prix et une date.</p>
+      <div class="addr">
+        <span>contact@octave-avocats.fr</span>
+        <span>+33 1 00 00 00 00</span>
+        <span>12 rue de l'Exemple, 75002 Paris</span>
+        <span>Visio du lundi au vendredi, 9 h à 19 h</span>
+      </div>
+    </div>
+    <form id="contact-form" novalidate>
+      <div class="row">
+        <label for="f-name">Nom et prénom<input id="f-name" name="name" type="text" autocomplete="name" required></label>
+        <label for="f-company">Société<input id="f-company" name="company" type="text" autocomplete="organization"></label>
+      </div>
+      <div class="row">
+        <label for="f-email">E-mail<input id="f-email" name="email" type="email" autocomplete="email" required></label>
+        <label for="f-topic">Sujet
+          <select id="f-topic" name="topic">
+            <option>Marque, dessin ou modèle</option>
+            <option>Contrat de licence ou cession de droits</option>
+            <option>Logiciel, open source, données</option>
+            <option>Contrefaçon ou concurrence déloyale</option>
+            <option>CGV / CGU</option>
+            <option>RGPD</option>
+            <option>Contrat commercial ou NDA</option>
+            <option>Abonnement</option>
+            <option>Autre</option>
+          </select>
+        </label>
+      </div>
+      <label for="f-msg">Votre besoin en quelques lignes<textarea id="f-msg" name="message" placeholder="Ex. : nous lançons un SaaS en janvier, nous avons besoin de CGU, d'une politique de confidentialité et de protéger le nom du produit."></textarea></label>
+      <div class="form-foot">
+        <span>Échange confidentiel, couvert par le secret professionnel.</span>
+        <button class="btn btn-primary" type="submit">Envoyer ma demande</button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="legal">
+      <span>© 2026 Octave Avocats · SELARL au capital de 10 000 € · RCS Paris 000 000 000</span>
+      <span>Avocats inscrits au Barreau de Paris · Toque X000</span>
+    </div>
+    <div class="legal">
+      <a href="#">Mentions légales</a>
+      <a href="#">Politique de confidentialité</a>
+      <a href="#">Convention d'honoraires type</a>
+      <a href="#">Médiateur de la consommation de la profession d'avocat</a>
+    </div>
+    <p>Les tarifs affichés sont indicatifs pour des dossiers standards et ne constituent pas une offre. Toute mission fait l'objet d'une convention d'honoraires écrite.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var form=document.getElementById('contact-form');
+  if(!form) return;
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    var name=form.querySelector('#f-name'),email=form.querySelector('#f-email');
+    var ok=true;
+    [name,email].forEach(function(el){
+      var bad=!el.value.trim()||(el.type==='email'&&!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value));
+      el.style.borderColor=bad?'#d9534f':'';
+      if(bad) ok=false;
+    });
+    if(!ok) return;
+    var topic=form.querySelector('#f-topic').value;
+    var toast=document.createElement('div');
+    toast.className='toast';
+    toast.innerHTML='<strong>Demande enregistrée (démo).</strong><span>Sur le site en production, cet envoi déclenchera un e-mail à l\'avocat référent. Sujet : '+topic.replace(/</g,'&lt;')+'. Réponse sous 24 h ouvrées à '+email.value.replace(/</g,'&lt;')+'.</span>';
+    form.replaceWith(toast);
+  });
+})();
+</script>
+</body>
+</html>
